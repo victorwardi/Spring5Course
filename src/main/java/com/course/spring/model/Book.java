@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 /**
  * Book
@@ -21,7 +22,9 @@ public class Book {
     private Long id;
     private String title;
     private String isbn;
-    private String publisher;
+    
+    @OneToOne
+    private Publisher publisher;
 
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
@@ -31,7 +34,7 @@ public class Book {
     public Book() {}
 
 
-    public Book(String title, String isbn, String publisher) {
+    public Book(String title, String isbn, Publisher publisher) {
         super();
         this.title = title;
         this.isbn = isbn;
@@ -40,7 +43,7 @@ public class Book {
 
 
 
-    public Book(String title, String isbn, String publisher, Set<Author> authors) {
+    public Book(String title, String isbn, Publisher publisher, Set<Author> authors) {
         super();
         this.title = title;
         this.isbn = isbn;
@@ -84,14 +87,14 @@ public class Book {
     /**
      * @return the publisher
      */
-    public String getPublisher() {
+    public Publisher getPublisher() {
         return publisher;
     }
 
     /**
      * @param publisher the publisher to set
      */
-    public void setPublisher(String publisher) {
+    public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
 
